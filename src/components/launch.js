@@ -20,6 +20,7 @@ import {
   AspectRatioBox,
   StatGroup,
 } from "@chakra-ui/core";
+import ReactTooltip from "react-tooltip";
 
 import { useSpaceX } from "../utils/use-space-x";
 import { formatDateTime } from "../utils/format-date";
@@ -123,9 +124,14 @@ function TimeAndLocation({ launch }) {
             Launch Date
           </Box>
         </StatLabel>
-        <StatNumber fontSize={["md", "xl"]}>
-          {formatDateTime(launch.launch_date_local)}
+        <StatNumber data-tip data-for='registerTip' fontSize={["md", "xl"]}>
+          {formatDateTime(launch.launch_date_utc)}
         </StatNumber>
+        <ReactTooltip id="registerTip" place="top" effect="solid">
+          <StatNumber fontSize={["md", "m"]}>
+            {formatDateTime(launch.launch_date_local)}
+          </StatNumber>
+        </ReactTooltip>
         <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
       </Stat>
       <Stat>
